@@ -3,6 +3,7 @@ const tmi = require('tmi.js');
 const { handleClip } = require('./src/commands/clip');
 const { handleUptime } = require('./src/commands/uptime');
 const { handleRedes } = require('./src/commands/redes');
+const { startTokenAutoRefresh } = require('./src/services/tokenService');
 
 const client = new tmi.Client({
   identity: {
@@ -38,4 +39,5 @@ client.on('connected', (addr, port) => {
   console.log(`[BOT] Canal: #${process.env.TWITCH_CHANNEL}`);
 });
 
+startTokenAutoRefresh();
 client.connect().catch(console.error);
