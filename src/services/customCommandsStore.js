@@ -48,14 +48,52 @@ function persistCommands(commands) {
   fs.writeFileSync(CUSTOM_COMMANDS_FILE, JSON.stringify(commands, null, 2));
 }
 
-function setCustomCommand(commandName, responseText) {
+function hasCustomCommand(commandName) {
   const normalizedName = normalizeCommandName(commandName);
   const commands = ensureCache();
+  return Object.prototype.hasOwnProperty.call(commands, normalizedName);
+}
+
+function addCustomCommand(commandName, responseText) {
+  const normalizedName = normalizeCommandName(commandName);
+  const commands = ensureCache();
+
+  if (Object.prototype.hasOwnProperty.call(commands, normalizedName)) {
+    return false;
+  }
 
   commands[normalizedName] = responseText;
   persistCommands(commands);
 
-  return normalizedName;
+  return true;
+}
+
+function editCustomCommand(commandName, responseText) {
+  const normalizedName = normalizeCommandName(commandName);
+  const commands = ensureCache();
+
+  if (!Object.prototype.hasOwnProperty.call(commands, normalizedName)) {
+    return false;
+  }
+
+  commands[normalizedName] = responseText;
+  persistCommands(commands);
+
+  return true;
+}
+
+function deleteCustomCommand(commandName) {
+  const normalizedName = normalizeCommandName(commandName);
+  const commands = ensureCache();
+
+  if (!Object.prototype.hasOwnProperty.call(commands, normalizedName)) {
+    return false;
+  }
+
+  delete commands[normalizedName];
+  persistCommands(commands);
+
+  return true;
 }
 
 function getCustomCommandResponse(commandName) {
@@ -67,6 +105,9 @@ function getCustomCommandResponse(commandName) {
 module.exports = {
   normalizeCommandName,
   isValidCustomCommandName,
-  setCustomCommand,
+  hasCustomCommand,
+  addCustomCommand,
+  editCustomCommand,
+  deleteCustomCommand,
   getCustomCommandResponse,
 };

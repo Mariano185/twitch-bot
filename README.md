@@ -4,7 +4,7 @@ Bot de Twitch en Node.js con:
 - Creacion de clips (!clip / !clips)
 - Uptime (!uptime)
 - Redes (!redes)
-- Comandos dinamicos creados desde chat (!add)
+- Comandos dinamicos creados/gestionados desde chat (!add, !edit, !del)
 - Auto-refresh de token de Twitch
 - Webhook opcional cuando se crea un clip
 
@@ -49,11 +49,13 @@ Comandos base:
 - !uptime: muestra tiempo en vivo
 - !redes: muestra redes
 - !add <comando> <respuesta>: crea comando personalizado
+- !edit <comando> <respuesta>: edita comando personalizado
+- !del <comando>: elimina comando personalizado
 
 ### Permisos y cooldown
 - BOT_OWNER y moderadores:
   - Uso ilimitado de !clip / !clips
-  - Pueden usar !add
+  - Pueden usar !add, !edit y !del
 - Usuarios sin rango:
   - Pueden usar !clip / !clips con cooldown de 15 minutos por usuario
 

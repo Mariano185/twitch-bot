@@ -1,6 +1,8 @@
 require('dotenv').config();
 const tmi = require('tmi.js');
 const { handleAddCommand } = require('./src/commands/add');
+const { handleEditCommand } = require('./src/commands/edit');
+const { handleDeleteCommand } = require('./src/commands/del');
 const { handleClip } = require('./src/commands/clip');
 const { handleUptime } = require('./src/commands/uptime');
 const { handleRedes } = require('./src/commands/redes');
@@ -28,7 +30,12 @@ client.on('message', async (channel, tags, message, self) => {
       case '!add':
         handleAddCommand(channel, tags, normalizedMessage, client);
         return;
-      case '!clips':
+      case '!edit':
+        handleEditCommand(channel, tags, normalizedMessage, client);
+        return;
+      case '!del':
+        handleDeleteCommand(channel, tags, normalizedMessage, client);
+        return;
       case '!clip':
         await handleClip(channel, tags, client);
         return;

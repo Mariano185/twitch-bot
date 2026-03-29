@@ -2,22 +2,22 @@ const { isPrivilegedUser } = require('../utils/isModerator');
 const {
   normalizeCommandName,
   isValidCustomCommandName,
-  addCustomCommand,
+  editCustomCommand,
 } = require('../services/customCommandsStore');
 
 const RESERVED_COMMANDS = new Set(['!add', '!edit', '!del', '!clip', '!clips', '!uptime', '!redes']);
 const MAX_CUSTOM_COMMAND_RESPONSE_LENGTH = 400;
 
-function handleAddCommand(channel, tags, message, client) {
+function handleEditCommand(channel, tags, message, client) {
   if (!isPrivilegedUser(tags)) {
     const ownerLogin = process.env.BOT_OWNER || process.env.TWITCH_CHANNEL || 'mariantwm';
-    client.say(channel, `@${tags['display-name']} Solo ${ownerLogin} y los moderadores pueden usar !add.`);
+    client.say(channel, `@${tags['display-name']} Solo ${ownerLogin} y los moderadores pueden usar !edit.`);
     return;
   }
 
-  const match = message.trim().match(/^!add\s+(\S+)\s+(.+)$/i);
+  const match = message.trim().match(/^!edit\s+(\S+)\s+(.+)$/i);
   if (!match) {
-    client.say(channel, 'Uso: !add <comando> <respuesta>');
+    client.say(channel, 'Uso: !edit <comando> <respuesta>');
     return;
   }
 
@@ -45,19 +45,19 @@ function handleAddCommand(channel, tags, message, client) {
   }
 
   if (RESERVED_COMMANDS.has(commandName)) {
-    client.say(channel, `No podes reemplazar el comando ${commandName}.`);
+    client.say(channel, `No podes editar el comando ${commandName}.`);
     return;
   }
 
-  const created = addCustomCommand(commandName, responseText);
-  if (!created) {
-    client.say(channel, `El comando ${commandName} ya existe. Usa !edit para modificarlo.`);
+  const edited = editCustomCommand(commandName, responseText);
+  if (!edited) {
+    client.say(channel, `El comando ${commandName} no existe. Usa !add para crearlo.`);
     return;
   }
 
-  client.say(channel, `Comando ${commandName} agregado.`);
+  client.say(channel, `Comando ${commandName} editado.`);
 }
 
 module.exports = {
-  handleAddCommand,
+  handleEditCommand,
 };
