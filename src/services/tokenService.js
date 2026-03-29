@@ -6,8 +6,13 @@ const ENV_PATH = path.join(__dirname, '..', '..', '.env');
 
 let refreshPromise = null;
 
+function sanitizeEnvValue(value) {
+  return String(value ?? '').replace(/[\r\n]/g, '');
+}
+
 function replaceOrAppendEnvVar(envContent, key, value) {
-  const line = `${key}=${value}`;
+  const safeValue = sanitizeEnvValue(value);
+  const line = `${key}=${safeValue}`;
   const regex = new RegExp(`^${key}=.*$`, 'm');
 
   if (regex.test(envContent)) {
