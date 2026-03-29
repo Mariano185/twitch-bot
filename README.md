@@ -1,7 +1,7 @@
 # Twitch Bot para mariantwm
 
 Bot de Twitch en Node.js con:
-- Creacion de clips (!clip / !clips)
+- Creacion de clips (!clip)
 - Uptime (!uptime)
 - Redes (!redes)
 - Comandos dinamicos creados/gestionados desde chat (!add, !edit, !del)
@@ -45,7 +45,7 @@ Variables clave:
 
 ## Comandos
 Comandos base:
-- !clip / !clips: crea clip
+- !clip: crea clip
 - !uptime: muestra tiempo en vivo
 - !redes: muestra redes
 - !add <comando> <respuesta>: crea comando personalizado
@@ -54,10 +54,10 @@ Comandos base:
 
 ### Permisos y cooldown
 - BOT_OWNER y moderadores:
-  - Uso ilimitado de !clip / !clips
+  - Uso ilimitado de !clip
   - Pueden usar !add, !edit y !del
 - Usuarios sin rango:
-  - Pueden usar !clip / !clips con cooldown de 15 minutos por usuario
+  - Pueden usar !clip con cooldown de 15 minutos por usuario
 
 ## Donde se guardan los datos
 - Clips: clips.json (raiz del proyecto)
