@@ -5,7 +5,7 @@ const {
   deleteCustomCommand,
 } = require('../services/customCommandsStore');
 
-const RESERVED_COMMANDS = new Set(['!add', '!edit', '!del', '!clip', '!clips', '!uptime', '!redes']);
+const RESERVED_COMMANDS = new Set(['!add', '!edit', '!del', '!clip', '!uptime', '!redes']);
 
 function handleDeleteCommand(channel, tags, message, client) {
   if (!isPrivilegedUser(tags)) {

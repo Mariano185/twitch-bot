@@ -5,7 +5,7 @@ const {
   editCustomCommand,
 } = require('../services/customCommandsStore');
 
-const RESERVED_COMMANDS = new Set(['!add', '!edit', '!del', '!clip', '!clips', '!uptime', '!redes']);
+const RESERVED_COMMANDS = new Set(['!add', '!edit', '!del', '!clip', '!uptime', '!redes']);
 const MAX_CUSTOM_COMMAND_RESPONSE_LENGTH = 400;
 
 function handleEditCommand(channel, tags, message, client) {
